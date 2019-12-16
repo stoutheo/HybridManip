@@ -28,6 +28,9 @@ from py_pack import operators as oper
 
 def animationfunc1Hand(x,y,yaw, cntX, cntY , U, V, dt, gX, gY, gPhi):
 
+    with open("py_pack/config/parameters.yml", 'r') as ymlfile:
+        params = yaml.load(ymlfile, Loader=yaml.FullLoader)
+
     # specifications of the figure
     fig = plt.figure()
     ax = fig.add_subplot(111)
@@ -37,8 +40,16 @@ def animationfunc1Hand(x,y,yaw, cntX, cntY , U, V, dt, gX, gY, gPhi):
     ax.set_ylim(-2, 2)
 
     # generate patch that represents a rectangle
-    patch = patches.Rectangle((0, 0), 0, 0, fc='y')
-    patch2 = patches.Rectangle((0, 0), 0, 0, fc='r')
+    if params['object']['shape']['shapeID'] == 0 :
+        # generate patch that represents a circle/disk
+        patch = plt.Circle((0, 0), 0, fc='y')
+        patch2 = patches.Rectangle((0, 0), 0, 0, fc='r')
+
+
+    if params['object']['shape']['shapeID'] == 1 or params['object']['shape']['shapeID'] == 2:
+        # generate patch that represents a rectangle
+        patch = patches.Rectangle((0, 0), 0, 0, fc='y')
+        patch2 = patches.Rectangle((0, 0), 0, 0, fc='r')
 
     # generate patch that represents a contact location
     patch3 = plt.Circle((0, 0), 0, fc='c')
@@ -51,6 +62,7 @@ def animationfunc1Hand(x,y,yaw, cntX, cntY , U, V, dt, gX, gY, gPhi):
     goalV = np.dot(np.array(oper.R(gPhi)), np.array([10,0]))
     qGoal = ax.quiver(gX, gY, goalV[0], goalV[1], scale=100, color='b')
 
+
     def init():
         ax.add_patch(patch)
         ax.add_patch(patch2)
@@ -60,6 +72,21 @@ def animationfunc1Hand(x,y,yaw, cntX, cntY , U, V, dt, gX, gY, gPhi):
 
     def animate(i):
 
+        if params['object']['shape']['shapeID'] == 0 :
+            r = params['object']['shape']['circle']['radius']
+            patch.set_radius(r)
+            patch.center = (x[i], y[i])
+
+            # # secondary rectangle to denote orientation
+            patch2.set_width(0.05)
+            patch2.set_height(r)
+            d_trans2 = np.dot(oper.R(yaw[i]),[0.025, 0])
+            patch2.set_xy([x[i] - d_trans2[0], y[i] - d_trans2[1]])
+            if (int(matplotlib.__version__[0])) < 2:
+                patch2._angle = np.rad2deg(yaw[i])
+            else:
+                patch2.angle  = np.rad2deg(yaw[i])
+
         if params['object']['shape']['shapeID'] == 1:
             h = params['object']['shape']['rectangle']['height']
             w = params['object']['shape']['rectangle']['width']
@@ -68,19 +95,26 @@ def animationfunc1Hand(x,y,yaw, cntX, cntY , U, V, dt, gX, gY, gPhi):
             h = params['object']['shape']['parallelogram']['height']
             w = params['object']['shape']['parallelogram']['width']
 
-        # main rectangle
-        patch.set_width(w)
-        patch.set_height(h)
-        d_trans = np.dot(oper.R(yaw[i]),[w/2, h/2])
-        patch.set_xy([x[i] - d_trans[0], y[i] - d_trans[1]])
-        patch._angle = np.rad2deg(yaw[i])
+        if params['object']['shape']['shapeID'] == 1 or params['object']['shape']['shapeID'] == 2:
+            # main rectangle
+            patch.set_width(w)
+            patch.set_height(h)
+            d_trans = np.dot(oper.R(yaw[i]),[w/2, h/2])
+            patch.set_xy([x[i] - d_trans[0], y[i] - d_trans[1]])
+            if (int(matplotlib.__version__[0])) < 2:
+                patch._angle = np.rad2deg(yaw[i])
+            else:
+                patch.angle  = np.rad2deg(yaw[i])
 
-        # secondary rectangle to denote orientation
-        patch2.set_width(w/2)
-        patch2.set_height(h/2)
-        d_trans2 = np.dot(oper.R(yaw[i]),[w/2,0])
-        patch2.set_xy([x[i] - d_trans2[0], y[i] - d_trans2[1]])
-        patch2._angle = np.rad2deg(yaw[i])
+            # secondary rectangle to denote orientation
+            patch2.set_width(w/2)
+            patch2.set_height(h/2)
+            d_trans2 = np.dot(oper.R(yaw[i]),[w/2,0])
+            patch2.set_xy([x[i] - d_trans2[0], y[i] - d_trans2[1]])
+            if (int(matplotlib.__version__[0])) < 2:
+                patch2._angle = np.rad2deg(yaw[i])
+            else:
+                patch2.angle  = np.rad2deg(yaw[i])
 
         # location of the circle
         patch3.set_radius(0.025)
