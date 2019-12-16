@@ -7,7 +7,7 @@ The repository is under development.
 * Numpy 
 * Matplotlib 
 * yaml (pyyaml)
-* CasADi : 
+* CasADi : https://web.casadi.org
 
 
 ## Run examples: 
