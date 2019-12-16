@@ -1,0 +1,29 @@
+#-----------------------------------------------------------------------------#
+# This file defines all the paramters of the problem
+# It basically:
+#   ......
+#-----------------------------------------------------------------------------#
+
+
+object:
+    shape:
+      shapeID: 0
+      circle:
+        radius: 0.265
+        inertia: 0.0351125 #1/2 * r**2;
+      rectangle:
+        height: 0.5
+        width: 0.5
+        inertia: 0.04167 # (2*r)^2 / 6;
+      parallelogram:
+        height: 0.36
+        width: 0.64
+        inertia: 0.04493 # (1/12) * (h^2 + w^2);
+    friction: 0.5
+    mass: 1
+
+gravity: [0, -9.81, 0]
+
+constraints:
+    maxDistatSwing: -1
+other:
