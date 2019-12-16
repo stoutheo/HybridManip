@@ -1,1 +1,1 @@
-# Hybrid-Manipulation
+# Hybrid-Manipulation (HybridManip)
