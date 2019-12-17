@@ -16,7 +16,7 @@ The repository is currently under development.
 &nbsp;&nbsp;&nbsp; with pip : ```source py3holm/bin/activate```
 2. Install all required packages. We have done a *holm.req* file for you to use:<br/> 
 &nbsp;&nbsp;&nbsp; with conda : ```conda install --file holm.req```<br/> 
-&nbsp;&nbsp;&nbsp; with pip : ```python3 -m pip install -r holm.req```
+&nbsp;&nbsp;&nbsp; with pip : ```python3 -m pip install -r holm.req```<br/><br/>
 
 ## Packages Dependencies 
 
@@ -24,7 +24,7 @@ The repository is currently under development.
 * Matplotlib : with conda : ```conda install matplotlib```,  with pip : ```python3 -m pip install -r matplotlib``` 
 * yaml (pyyaml): with conda : ```conda install pyyaml```,  with pip : ```python3 -m pip install -r pyyaml``` 
 * CasADi : with conda : ```conda install casadi```,  with pip : ```python3 -m pip install -r casadi``` 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for more details please see: https://web.casadi.org
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for more details please see: https://web.casadi.org  <br/><br/>
 
 
 ## Run examples: 
@@ -40,7 +40,17 @@ To run the examples:
 
 
 *e.g.* for two end-effector agent for Cnt2Cnt and Cnt2Cnt HOLM primitive (first phase is contact and followed by contact phase for both end-effectors)
-* ```python3 -m py_pack.examples.Bimanual_Cnt2Cnt_Cnt2Cnt```
+* ```python3 -m py_pack.examples.Bimanual_Cnt2Cnt_Cnt2Cnt``` <br/><br/>
+
+
+#### Change parameters, like objects, friction coefficient, *etc*:
+
+* go to file parameters.yml, found in py_pack/config 
+
+
+#### Change parameters of the problem, like task, initial conditions, variable bounds, *etc*:
+
+* go to file each example file, found in py_pack/example 
 
 
 
