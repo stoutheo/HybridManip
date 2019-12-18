@@ -43,6 +43,12 @@ To run the examples:
 * ```python3 -m py_pack.examples.Bimanual_Cnt2Cnt_Cnt2Cnt``` <br/><br/>
 
 
+<p float="left">
+  <img src="gifs/Cnt2Cnt-Cnt2Cnt-Circle.gif" width="280" height="209"/>
+  <img src="gifs/Cnt2Cnt-Cnt2Cnt-Rectangle.gif" width="280" height="209" />
+  <img src="gifs/Cnt2Cnt-Cnt2Cnt-Parallelogram.gif" width="280" height="209" />
+</p>
+
 #### Change parameters, like objects, friction coefficient, *etc*:
 
 * go to file parameters.yml, found in py_pack/config 
